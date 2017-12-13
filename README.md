@@ -13,4 +13,4 @@ OE UI Designer, is a plugin for OE Studio which provide end users a web interfac
 * add oe-ui-designer to the application's [designer config](http://evgit/oecloud.io/oe-studio#configuration-for-designer-in-oe-cloud).
 * bower install `oe-ui-designer`
 
-> Learn more about OE UI Designer [here](docs/README.md).
+> Learn more about OE UI Designer [here](docs/Guide.md).
