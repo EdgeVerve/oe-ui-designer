@@ -65,6 +65,8 @@
     "oe-ui-forms": "master",
     "oe-typeahead": "master",
     "oe-input": "master",
-    "oe-utils": "master"
+    "oe-utils": "master",
+    "oe-field-behavior": "master",
+    "oe-i18n-msg": "master"
   }
 }

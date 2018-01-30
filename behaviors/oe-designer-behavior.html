@@ -4,7 +4,7 @@
 <script>
 		window.OEUtils = window.OEUtils || {};
 	var EV = window.OEUtils;
-	
+
 	OEUtils.clone = function(from, to) {
 		if (from === null || typeof from !== 'object') {
 			return from;
@@ -18,9 +18,9 @@
 		}
 		to = to || new from.constructor();
 
-		for (var name in from) {
+		Object.keys(from).forEach(function(name) {
 			to[name] = typeof to[name] === 'undefined' ? OEUtils.clone(from[name], null) : to[name];
-		}
+		})
 
 		return to;
 	}
