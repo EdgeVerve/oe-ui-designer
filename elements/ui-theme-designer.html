@@ -1589,7 +1589,7 @@
 
           var theme = this.generatedTheme.theme;
           var themeFile = this.customTmpl.outerHTML;
-          Object.keys(theme).forEach(function (k) {
+          theme && Object.keys(theme).forEach(function (k) {
             var reg = new RegExp('<<' + k + '>>', 'g');
             themeFile = themeFile.replace(reg, theme[k]);
           });
@@ -1616,7 +1616,7 @@
         }
         var theme = themeObj.theme;
         var themeFile = this.customTmpl.outerHTML;
-        Object.keys(theme).forEach(function (k) {
+        theme && Object.keys(theme).forEach(function (k) {
           var reg = new RegExp('<<' + k + '>>', 'g');
           themeFile = themeFile.replace(reg, theme[k]);
         });

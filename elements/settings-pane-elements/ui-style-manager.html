@@ -272,7 +272,7 @@
       },
       _getRules: function (ruleList, type) {
         var rules = [];
-        Object.keys(ruleList)
+        ruleList && Object.keys(ruleList)
           .forEach(function (key) {
             if (ruleList[key].type == 1) {
               rules.push({
@@ -283,7 +283,7 @@
               });
             }
             if (ruleList[key].type == 4) {
-              Object.keys(ruleList[key].cssRules).forEach(function (newkey) {
+              ruleList[key].cssRules && Object.keys(ruleList[key].cssRules).forEach(function (newkey) {
                 rules.push({
                   selectorText: ruleList[key].cssRules[newkey].selectorText,
                   style: ruleList[key].cssRules[newkey].style,
