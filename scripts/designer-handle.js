@@ -6,6 +6,7 @@
 */
 /* VARIABLES*/
 var Polymer = Polymer || window.parent.Polymer || {};
+var OEUtils = OEUtils || window.parent.OEUtils || {};
 
 var designerController = (function () {
 	var cont = document.getElementById('content');
@@ -26,6 +27,17 @@ var designerController = (function () {
 
 	/* FUNCTIONS*/
 	function attachContextContainers() {
+		//Import custom files into iframe.
+		if (OEUtils.uiDesignerData && OEUtils.uiDesignerData.iframeImports) {
+			OEUtils.uiDesignerData.iframeImports.forEach(function (url) {
+				Polymer.Base.importHref(url, function handleDynamicImport() {
+				}, function handleImportError() {
+					fireParent('oe-show-error', 'Error in importing element from ' + url);
+				});
+			})
+		}
+
+
 		var fHead = document.getElementById('focusContext');
 		if (fHead) {
 			fHead.addEventListener('open-setting', openSettingPanel);
