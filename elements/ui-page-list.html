@@ -599,7 +599,7 @@
           'body': 'e-v-body',
           'head': 'e-v-head'
         }
-        Object.keys(maped).forEach(function (k) {
+        maped && Object.keys(maped).forEach(function (k) {
           var reg = new RegExp('<' + k + '(>| )')
           textStr = textStr.replace(reg, function (n) {
             return n.replace(k, maped[k])

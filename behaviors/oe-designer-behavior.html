@@ -4,7 +4,7 @@
 <script>
 		window.OEUtils = window.OEUtils || {};
 	var EV = window.OEUtils;
-	
+
 	OEUtils.clone = function(from, to) {
 		if (from === null || typeof from !== 'object') {
 			return from;
@@ -18,9 +18,9 @@
 		}
 		to = to || new from.constructor();
 
-		for (var name in from) {
+		from && Object.keys(from).forEach(function(name) {
 			to[name] = typeof to[name] === 'undefined' ? OEUtils.clone(from[name], null) : to[name];
-		}
+		})
 
 		return to;
 	}
@@ -265,7 +265,7 @@
 			var ele = self.createNodeFromName(uiType);
 			ele.classList.add('evfield');
 			ele.setAttribute('field-id', config.propName);
-			Object.keys(config.propDef).forEach(function(k) {
+			config.propDef && Object.keys(config.propDef).forEach(function(k) {
 				if (k !== 'uitype' && k !== 'type' && k !== 'itemtype' && k !== 'evtype') {
 					ele.setAttribute(k, '[[_fieldsmeta.' + config.propName + '.' + k + ']]')
 				}
@@ -280,14 +280,14 @@
 	DesignerBehavior.CommonBehavior = {
 		polyObjectTopolyJson: function(polyObj) {
 			var polyJson = {};
-			Object.keys(polyObj).forEach(function(key) {
+			polyObj && Object.keys(polyObj).forEach(function(key) {
 				var val = polyObj[key];
 				if (key === 'properties') {
 					polyJson.properties = polyJson.properties || {}
-					Object.keys(val).forEach(function(propName) {
+					val && Object.keys(val).forEach(function(propName) {
 						var propVal = val[propName];
 						polyJson.properties[propName] = {};
-						Object.keys(propVal).forEach(function(propKey) {
+						propVal && Object.keys(propVal).forEach(function(propKey) {
 							if (propKey === 'type') {
 								polyJson.properties[propName].type = propVal[propKey].name;
 							} else if (typeof propVal[propKey] === 'function') {
@@ -334,14 +334,14 @@
 		},
 		polyJsonTopolyObject: function(polyJson) {
 			var polyObj = {};
-			Object.keys(polyJson).forEach(function(key) {
+			polyJson && Object.keys(polyJson).forEach(function(key) {
 				var val = polyJson[key];
 				if (key === 'properties') {
 					polyObj.properties = polyObj.properties || {}
-					Object.keys(val).forEach(function(propName) {
+					val && Object.keys(val).forEach(function(propName) {
 						var propVal = val[propName];
 						polyObj.properties[propName] = {};
-						Object.keys(propVal).forEach(function(propKey) {
+						propVal && Object.keys(propVal).forEach(function(propKey) {
 							try {
 								polyObj.properties[propName][propKey] = eval(propVal[propKey]);
 							} catch (e) {
@@ -359,7 +359,7 @@
 						}
 					})
 				} else if (key === 'functions') {
-					Object.keys(val).forEach(function(fnName) {
+					val && Object.keys(val).forEach(function(fnName) {
 						polyObj[fnName] = new Function('return ' + val[fnName])()
 					})
 				} else {
@@ -371,7 +371,7 @@
 		polyJsonTopolyStr: function(polyJson) {
 			var extraAttr = [];
 			var polyArr = []
-			Object.keys(polyJson).forEach(function(key) {
+			polyJson && Object.keys(polyJson).forEach(function(key) {
 				var val = polyJson[key];
 				switch (key) {
 					case 'properties':

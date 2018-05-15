@@ -62,7 +62,7 @@
 
                             var classObj = JSON.parse(jsonStr);
                             var newObj = {};
-                            Object.keys(classObj).forEach(function (k) {
+                            classObj && Object.keys(classObj).forEach(function (k) {
                                 newObj[OEUtils.snakeToCamel(k)] = classObj[k]
                             });
 

@@ -335,7 +335,7 @@
       if (typeof properties !== "object") {
         return;
       }
-      Object.keys(properties).forEach(function (prop) {
+      properties && Object.keys(properties).forEach(function (prop) {
         if (prop.startsWith('_') || (typeof properties[prop] !== 'object')) {
           return;
         }

@@ -6,6 +6,7 @@
 */
 /* VARIABLES*/
 var Polymer = Polymer || window.parent.Polymer || {};
+var OEUtils = OEUtils || window.parent.OEUtils || {};
 
 var designerController = (function () {
 	var cont = document.getElementById('content');
@@ -26,6 +27,17 @@ var designerController = (function () {
 
 	/* FUNCTIONS*/
 	function attachContextContainers() {
+		//Import custom files into iframe.
+		if (OEUtils.uiDesignerData && OEUtils.uiDesignerData.iframeImports) {
+			OEUtils.uiDesignerData.iframeImports.forEach(function (url) {
+				Polymer.Base.importHref(url, function handleDynamicImport() {
+				}, function handleImportError() {
+					fireParent('oe-show-error', 'Error in importing element from ' + url);
+				});
+			})
+		}
+
+
 		var fHead = document.getElementById('focusContext');
 		if (fHead) {
 			fHead.addEventListener('open-setting', openSettingPanel);
@@ -774,61 +786,6 @@ var designerController = (function () {
 	}
 
 
-	// Testing Design Patterns
-
-
-	// function findDesignerElement(element){
-	// 	if(cont.contains(element)){
-	// 		var target = element;
-	// 		while(!(target.getAttribute && target.getAttribute('oe-id'))){
-	// 			target = target.parentElement;
-	// 		}
-	// 		return target;
-	// 	}else{
-	// 		return cont;
-	// 	}
-	// }
-
-	// function mouseOverHandler(event){
-	// 	var element = event.target;
-	// 	var designerElement = findDesignerElement(element);
-	// 	if(hoveredElement.get() != designerElement){
-	// 		hoveredElement.set(designerElement);
-	// 	}
-	// 	console.log();
-	// }
-
-	// function mouseLeaveHandler(event){
-	// 	hoveredElement.set(designerElement);
-	// }
-	// function clickHandler(event){
-	// }
-	// function dragEnterHandler(event){};
-	// function dragOverHandler(event){};
-	// function dragLeaveHandler(event){};
-	// function dropHandler(event){};
-	// function createGlobalHandling(){
-	// 	var cont = document.getElementById('content');
-
-	// 	//Hover Context Handling
-	// 	cont.addEventListener('mouseover',mouseOverHandler);
-	// 	cont.addEventListener('mouseleave',mouseLeaveHandler);
-
-
-
-
-	// 	//Click Handling
-	// 	cont.addEventListener('click',clickHandler)
-
-	// 	//Drag Handling
-	// 	cont.addEventListener('dragenter',dragEnterHandler);
-	// 	cont.addEventListener('dragover',dragOverHandler);
-	// 	cont.addEventListener('dragleave',dragLeaveHandler);
-	// 	cont.addEventListener('drop',dropHandler);
-	// 	cont.setAttribute('droppable', true);
-	// }
-	//createGlobalHandling();
-	//
 	attachContextContainers();
 
 	createAsContainer(cont);

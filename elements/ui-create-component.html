@@ -507,7 +507,7 @@
         var properties = [];
         var meta = {}
         var modelData = resp[this.selectedModel];
-        Object.keys(modelData.properties).forEach(function (prop) {
+        modelData.properties && Object.keys(modelData.properties).forEach(function (prop) {
           var modelprop = {
             name: prop,
             'config': modelData.properties[prop],

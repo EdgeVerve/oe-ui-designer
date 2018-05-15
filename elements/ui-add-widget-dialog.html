@@ -29,7 +29,7 @@
 			}
 		</style>
 
-		<paper-dialog id="dialog" modal>
+		<paper-dialog id="dialog">
 			<div class="dialog-header">[[display.heading]]</div>
 			<div class="dialog-content">
 				<form is="iron-form" id="form">
@@ -38,6 +38,7 @@
 					<label class="helper-text">Widget Description</label>
 					<oe-textarea no-label-float value="{{config.description}}" required></oe-textarea>
 					<oe-input no-label-float label="icon" value="{{config.icon}}"></oe-input>
+					<oe-combo required listdata="[[componentTypes]]" value="{{config.config.type}}" label="Component Type"></oe-combo>
 					<oe-combo required listdata="[[display.widgetTypes]]" value="{{config.category}}" label="Category"></oe-combo>
 				</form>
 			</div>
@@ -55,6 +56,7 @@
 			attached: function () {
 				this.listComponent = document.querySelector('ui-element-list');
 				this.uiListComponent = document.querySelector('ui-page-list');
+				this.set('componentTypes',['uneditable','text','droppable']);
 			},
 			validateForm: function () {
 				return this.$.form.validate();
